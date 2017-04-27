@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Fake-Twitter</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="css.css" rel="stylesheet" type="text/css">
+    
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Fake-Twitter</h1>
+
+        <div class="row">
+            <div class="col-md-4">
+              <input class="form-control input-lg" type="text" id="search" placeholder="Search" />
+            </div>
+
+            <div class="col-md-2 col-md-offset-1">
+                <button type="button" class="btn btnInfo" id="neu">NEU</button>
+            </div>
+
+            <div class="col-md-offset-3 col-md-2">
+                <button type="button" class="btn btnInfo logOut">Ausloggen</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 col-md-offset-8">
+                <div class="media">
+                <div class="media-body">
+                    <h4 class="media-heading" id="usernameTop"><em>@funny_name</em></h4>
+                    <button type="button" class="btn btnInfo">12<br />Verfolgte</button>
+                    <button type="button" class="btn btnInfo">10<br />Verfolger</button>
+                </div>
+                <div class="media-right media-middle">
+                    <img src="img_avatar1.png" class="media-object" id="usericon">
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#home" class="tab">Beiträge</a></li>
+                    <li><a data-toggle="tab" href="#menu1"  class="tab">Verfolgte</a></li>
+                    <li><a data-toggle="tab" href="#menu2" class="tab">Verfolger</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="home" class="tab-pane fade in active">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <div class="media">
+                                    <div class="media-left media-top">
+                                        <img src="img_avatar1.png" class="media-object timelineIcon">
+                                    </div>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">John Doe <em class="small">Gestern, 12:30 Uhr</em></h4>
+                                        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="media">
+                                    <div class="media-left media-top">
+                                        <img src="img_avatar1.png" class="media-object timelineIcon">
+                                    </div>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">James Doe <em class="small">Sonntag, 17:54 Uhr</em></h4>
+                                        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="media">
+                                    <div class="media-left media-top">
+                                        <img src="img_avatar1.png" class="media-object timelineIcon">
+                                    </div>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">Jane Doe <em class="small">2.4.2017, 7:23 Uhr Uhr</em></h4>
+                                        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="menu1" class="tab-pane fade">
+                        <h3>Menu 1</h3>
+                        <p>Some content in menu 1.</p>
+                    </div>
+                    <div id="menu2" class="tab-pane fade">
+                        <h3>Menu 2</h3>
+                        <p>Some content in menu 2.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="pager">
+                    <li class="disabled"><a class="pageButtons" href="#">Neuer</a></li>
+                    <li><a href="#" class="pageButtons">Älter</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

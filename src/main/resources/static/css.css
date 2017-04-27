@@ -1,0 +1,72 @@
+@charset "utf-8";
+
+body{
+	background-color: rgba(70,70,70,1.00);
+}
+#usericon{
+	width: 100px;
+}
+
+.timelineIcon{
+	width: 60px;
+	background-color: rgba(45,45,45,1);
+}
+
+#neu {
+	width: 100px;
+	height: 100px;
+	border-radius: 100%;
+	font-size: 1.8em;
+}
+
+.btnInfo{
+	background-color: rgba(215,255,245,1.00);
+	border-width: 2px;
+	border-color: black;
+	color: black;
+}
+.logOut:hover{
+	background-color: white;
+	border-color: black;
+	color: black;
+}
+
+.btnInfo:hover{
+	background-color: white;
+	border-color: black;
+	color: black;
+}
+
+.btnInfo:focus{
+	background-color: white;
+	color: black;
+	border-color: black;
+}
+
+#search{
+	background-color: rgba(215,255,245, 1);
+	color: black;
+	border-width: 2px;
+	border-color: black;
+}
+
+h1{
+	color: rgba(215, 255,245,1);
+	text-align: center;
+}
+
+#usernameTop{
+	color: rgba(215, 255,245,1);
+}
+
+a{
+	color: rgba(215, 255,245,1);
+}
+
+.tab{
+	background-color:rgba(90,90,90,1.00);
+}
+
+.pageButtons{
+	color: black;
+}

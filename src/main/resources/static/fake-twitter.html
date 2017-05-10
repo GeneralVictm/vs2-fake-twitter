@@ -21,7 +21,7 @@
 
         <div class="row">
             <div class="col-md-4">
-              <input class="form-control input-lg" type="text" id="search" placeholder="Search" />
+              <input class="form-control input-lg" type="text" id="search" placeholder="Search" onkeydown="if (event.keyCode == 13) searchResults()"/>
             </div>
 
             <div class="col-md-2 col-md-offset-1">
@@ -119,15 +119,40 @@
 	<div id="newPost">
    		<h2  >Neuer Post</h2>
    		<textarea id="postContent"  placeholder="Was passiert gerade?"></textarea>
-   		<button id="postButton" type="button" class="btn btnInfo">Posten</button>
+   		<button id="postButton" type="button" class="btn btnInfo" onclick="hideNewPost()">Posten</button>
+    </div>
+    <div id="searchRes">
+    	<h2>Suchergebnisse</h2>
+    	<tbody th:remove="all-but-first">
+    		<div><tr th:each="user : ${searchResults}">
+    			<a href="/user" th:text=${user.name}">John Doe</a>
+    		</tr></div>
+    		<div><tr><a>Jane Doe</a></tr></div>
+    		<div><tr><a>Johnathan</a></tr></div>
+    	</tbody>
+    	<button type="button" class="btn btnInfo" onclick="hideSearchResults()">Cancel</button>
     </div>
     <script>
     	function newPost() {
-    		var popup = document.getElementById("overlay");
-    		popup.classList.toggle("show");
-    		popup = document.getElementById("newPost");
-    		popup.classList.toggle("show");
+    		document.getElementById("overlay").style.visibility = 'visible';
+    		document.getElementById("newPost").style.visibility = 'visible';
     	}
+    	
+    	function hideNewPost() {
+    		document.getElementById("overlay").style.visibility = 'hidden';
+    		document.getElementById("newPost").style.visibility = 'hidden';
+    	}
+    	
+    	function searchResults() {
+    		document.getElementById("overlay").style.visibility = 'visible';
+    		document.getElementById("searchRes").style.visibility = 'visible';
+    	}
+    	
+    	function hideSearchResults() {
+    		document.getElementById("overlay").style.visibility = 'hidden';
+    		document.getElementById("searchRes").style.visibility = 'hidden';
+    	}
+    	    	
     </script>
 </body>
 </html>

@@ -46,7 +46,9 @@
                 </div>
             	</div>
             	<div class="col-md-offset-3 col-md-2">
-        			<button id="follow" type="button" class="btn btnInfo">Folgen</button>
+            		<form action="#" method="post">
+            			<button id="follow" type="button" class="btn btnInfo" name="action" value="follow" th:class="§{isFollowing} ? 'Folgen' : 'Entfolgen'">Folgen</button>
+            		</form>
         		</div>
             </div>
         </div>

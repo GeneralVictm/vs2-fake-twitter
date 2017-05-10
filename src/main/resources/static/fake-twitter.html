@@ -167,7 +167,9 @@
 	<div id="newPost">
    		<h2  >Neuer Post</h2>
    		<textarea id="postContent"  placeholder="Was passiert gerade?"></textarea>
-   		<button id="postButton" type="button" class="btn btnInfo" onclick="hideNewPost()">Posten</button>
+   		<form action="#" method="post">
+   			<button id="postButton" type="button" class="btn btnInfo" onclick="hideNewPost()" name="action" value="post">Posten</button>
+   		</form>
     </div>
     <div id="searchRes">
     	<h2>Suchergebnisse</h2>

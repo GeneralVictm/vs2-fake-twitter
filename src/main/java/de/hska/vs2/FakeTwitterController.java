@@ -65,24 +65,25 @@ public class FakeTwitterController {
 				following[i] = new User(follow[i]) ;
 			}
 			ctx.setVariable("followingList", following);
+			if ()
 			templateEngine.process("otherProfile", ctx, response.getWriter());
 		}
 		
 	}
 	
-	@RequestMapping(value = "/users", method = RequestMethod.POST)
+	@RequestMapping(value = "/users", method = RequestMethod.POST, params = "action=post")
     public void newPost(@RequestParam("postContent") String content) {
 		User user = new User(SecurityInfo.getUid());
 		Post post = new Post(user.getId(), new Date(), content);
 		repository.addPost(post);
     }
 	
-	@RequestMapping(value = "/users/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/users/{id}", method = RequestMethod.POST, params = "action=follow")
     public void follow(@PathVariable("id") int id) {
         repository.addFollower(id, SecurityInfo.getUid());
     }
 	
-	@RequestMapping(value = "/users/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/users/{id}", method = RequestMethod.POST, params = "action=unfollow")
     public void unfollow(@PathVariable("id") int id) {
         repository.deleteFollower(id, SecurityInfo.getUid());
     }

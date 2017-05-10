@@ -33,10 +33,10 @@ public class LoginController {
             Cookie cookie = new Cookie("auth", auth);
             response.addCookie(cookie);
             model.addAttribute("user", user.getName());
-            return "users/" + user.getName();
+            return "redirect:users/" + user.getName(); // wenn es nicht funktioniert: kopletter Pfad angeben
         }
         model.addAttribute("user", new User());
-        return "login";
+        return "redirect:login"; // gleiches wie oben
     }
 
     @RequestMapping(value = "/blog/logout", method = RequestMethod.GET)
@@ -46,5 +46,14 @@ public class LoginController {
             repository.deleteAuth(name);
         }
         return "redirect:/";
+    }
+    
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public void process(final HttpServletRequest request, final HttpServletResponse response,
+            final ServletContext servletContext, final ITemplateEngine templateEngine) {
+
+		WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
+		
+		templateEngine.process("login", ctx, response.getWriter());
     }
 }

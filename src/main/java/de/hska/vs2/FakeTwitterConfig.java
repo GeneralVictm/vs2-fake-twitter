@@ -50,6 +50,16 @@ public class FakeTwitterConfig extends WebMvcConfigurerAdapter {
 	    templateEngine.setEnableSpringELCompiler(true);
 	    return templateEngine;
 	}
+	
+	@Bean
+	public ThymeleafViewResolver viewResolver(){
+	    ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+	    viewResolver.setTemplateEngine(templateEngine());
+	    // NOTE 'order' and 'viewNames' are optional
+	    viewResolver.setOrder(1);
+	    viewResolver.setViewNames(new String[] {".html", ".xhtml"});
+	    return viewResolver;
+	}
 
 	/**
 	 * JedisConnectionFactory getConnectionFactory()

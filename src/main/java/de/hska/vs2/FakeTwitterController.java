@@ -65,7 +65,6 @@ public class FakeTwitterController {
 				following[i] = new User(follow[i]) ;
 			}
 			ctx.setVariable("followingList", following);
-			if ()
 			templateEngine.process("otherProfile", ctx, response.getWriter());
 		}
 		

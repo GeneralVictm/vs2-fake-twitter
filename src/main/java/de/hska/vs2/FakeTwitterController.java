@@ -98,11 +98,13 @@ public class FakeTwitterController {
     public void search(@RequestParam("search") String user) {
 		String[] users = repository.search(user);
 		WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
-		User[] result;
+		/*User[] result;
 		for (int i = 0; i < users; i++) {
 			result[i] = new User(users[i]);
-		}
-		ctx.setVariable("searchResult",);
+		}*/
+
+		String[] allUsers = repository.getAllUsers();
+		ctx.setVariable("searchResult",allUsers);
     }
 	
 }

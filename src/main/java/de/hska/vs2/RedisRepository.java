@@ -154,7 +154,7 @@ public class RedisRepository {
 
         String[] followers = getFollower(post.getUser().getId());
 
-        for (int i, i<followers.length, i++){
+        for (int i=0; i<followers.length; i++){
             String followerID = followers[i];
             String key = "GlobalTimeline:" + followerID;
             template.opsForHash().put(key, "post" + pid, pid);
@@ -163,14 +163,6 @@ public class RedisRepository {
         post.setPid(pid);
         return post;
     }
-
-
-
-
-
-
-
-
 
 
     public void addFollowing (String uid, String followedID) {
@@ -209,7 +201,7 @@ public class RedisRepository {
         template.opsForHash().delete(key, "uname");
         template.opsForHash().delete(key, "pass");
 
-        key = "uname:" + user.getName() + "uid"
+        key = "uname:" + user.getName() + "uid";
         template.delete( key );
         //template.opsForValue().set("uname:" + user.getName() + "uid", uid);
         template.opsForSet().remove("user", key);
@@ -241,7 +233,7 @@ public class RedisRepository {
 
         String[] followers = getFollower(post.getUser().getId());
 
-        for (int i, i<followers.length, i++){
+        for (int i=0; i<followers.length; i++){
             String followerID = followers[i];
             String key = "GlobalTimeline:" + followerID;
             template.opsForHash().delete(key, "post" + pid);

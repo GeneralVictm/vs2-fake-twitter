@@ -146,3 +146,7 @@ h2 {
 	height: 50px;
 	border-radius: 10px;
 }
+
+.tab-content .media{
+	background-color: white;
+}

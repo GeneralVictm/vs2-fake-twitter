@@ -3,6 +3,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 public class FakeTwitterController {
+	
+	private RedisRepository repository;
 
 	public String index() {
 		return "index";
@@ -13,15 +15,77 @@ public class FakeTwitterController {
             final ServletContext servletContext, final ITemplateEngine templateEngine, @PathVariable("id") int id) {
 		
 		WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
+		User user = new User(SecurityInfo.getUid());
+		Post[] posts;
+		User[] follower;
+		User[] following;
 		
-		ctx.setVariable("currentUser.name");
-		ctx.setVariable("followingCount");
-		ctx.setVariable("followerCount");
-		ctx.setVariable("post.user.name");
-		ctx.setVariable("post.timestamp");
-		ctx.setVariable("post.content");
-		ctx.setVariable("");
+		if (user.getId() == id) {
+			ctx.setVariable("currentUser.name", user.getName());
+			ctx.setVariable("followingCount", user.getCountFollowing());
+			ctx.setVariable("followerCount", user.getCountFollower());
+			String[] timeline = repository.getGlobalTimeline(user.getId());
+			for (int i = 0; i < timeline.length; i++) {
+				posts[i] = new Post(timeline[i]) ;
+			}
+			ctx.setVariable("globalPostList", posts);
+			String[] timeline = repository.getPersonalTimeline(user.getId());
+			for (int i = 0; i < timeline.length; i++) {
+				posts[i] = new Post(timeline[i]) ;
+			}
+			ctx.setVariable("lokalPostList", posts);
+			String[] follow = repository.getFollower(user.getId());
+			for (int i = 0; i < timeline.length; i++) {
+				follower[i] = new User(follow[i]) ;
+			}
+			ctx.setVariable("followerList", follower);
+			String[] follow = repository.getFollower(user.getId());
+			for (int i = 0; i < timeline.length; i++) {
+				following[i] = new User(follow[i]) ;
+			}
+			ctx.setVariable("followingList", following);
+			templateEngine.process("fake-twitter", ctx, response.getWriter());
+		} else {
+			User user2 = new User(id);
+			ctx.setVariable("currentUser.name", user2.getName());
+			ctx.setVariable("followingCount", user2.getCountFollowing());
+			ctx.setVariable("followerCount", user2.getCountFollower());
+			String[] timeline = repository.getPersonalTimeline(id);
+			for (int i = 0; i < timeline.length; i++) {
+				posts[i] = new Post(timeline[i]) ;
+			}
+			ctx.setVariable("lokalPostList", posts);
+			String[] follow = repository.getFollower(user.getId());
+			for (int i = 0; i < timeline.length; i++) {
+				follower[i] = new User(follow[i]) ;
+			}
+			ctx.setVariable("followerList", follower);
+			String[] follow = repository.getFollower(user.getId());
+			for (int i = 0; i < timeline.length; i++) {
+				following[i] = new User(follow[i]) ;
+			}
+			ctx.setVariable("followingList", following);
+			templateEngine.process("otherProfile", ctx, response.getWriter());
+		}
 		
-		templateEngine.process("fake-twitter", ctx, response.getWriter());
 	}
+	
+	@RequestMapping(value = "/users", method = RequestMethod.POST)
+    public String newPost(@RequestParam("postContent") String content) {
+		User user = new User(SecurityInfo.getUid());
+		Post post = new Post(user.getId(), new Date(), content);
+		repository.addPost(post);
+    }
+	
+	@RequestMapping(value = "/users/{id}", method = RequestMethod.POST)
+    public String follow(@PathVariable("id") int id) {
+        repository.addFollower(id, SecurityInfo.getUid());
+    }
+	
+	@RequestMapping(value = "/users/{id}", method = RequestMethod.POST)
+    public String unfollow(@PathVariable("id") int id) {
+        repository.deleteFollower(id, SecurityInfo.getUid());
+    }
+	
+	
 }

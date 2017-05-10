@@ -140,3 +140,9 @@ a{
 h2 {
 	margin-left: 10px;
 }
+
+#follow{
+	width: 150px;
+	height: 50px;
+	border-radius: 10px;
+}

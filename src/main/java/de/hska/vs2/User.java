@@ -62,7 +62,7 @@ public class User {
 
     public User(String uid){
         this.uname = repository.getUserName(uid);
-        uid = uid;
+        this.uid = uid;
         this.countFollower = repository.getFollowerCount(uid);
         this.countFollowing = repository.getFollowingCount(uid);
         this.follower = repository.getFollower(uid);

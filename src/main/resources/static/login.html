@@ -1,10 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<meta charset="utf-8">
+<title>fakeTwitter</title>
 
+<style>
+*{
+	margin: 0;
+	padding: 0;
+	font-family: Arial;
+}
+
+body{
+	background-color:  rgba(70,70,70,1.00);
+}
+
+#loginBox{
+	margin: 0 auto;
+	margin-top: 100px;
+	width: 250px;
+	background-color: white;
+	padding: 20px;
+	border-radius: 5px;
+}
+h1{
+	padding: 10px 0;
+}
+input{
+	border-color: black;
+	padding: 5px 0;
+	margin: 5px;
+	width: 240px;
+}
+input:focus{
+	background-color: rgba(233,255,249,0.3);
+	border-color: black;
+}
+input[type=submit]{
+	background-color: rgba(215,255,245,0.6);
+	border: hidden;
+	shadow: none;
+	width: 140px;
+	height: 40px;
+	display: block;
+	margin: 0 auto;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+input[type=submit]:focus{
+	background-color: rgba(215,255,245,1.00);
+}
+a{
+	display: block;
+	text-align: center;
+	font-size: 0.8em;
+	text-decoration: none;
+	color:rgba(7,175,133,1.00);
+	margin-top: 5px;
+}
+
+</style>
+
+</head>
+
+<body>
+<div id="loginBox">
+	<h1>Log In</h1>
+    <div class="form">
+		<input type="email" placeholder="Username">
+		<input type="password" placeholder="Password">
+		<input type="submit" value="SEND">
+	</div>
+    <a href="/forgotPW.html">Passwort vergessen?</a>
+    <a href="/signUp.html">Registrieren</a>
+</div>
 </body>
 </html>

@@ -56,12 +56,12 @@ public class FakeTwitterController {
 			}
 			ctx.setVariable("lokalPostList", posts);
 			String[] follow = repository.getFollower(user.getId());
-			for (int i = 0; i < timeline.length; i++) {
+			for (int i = 0; i < follow.length; i++) {
 				follower[i] = new User(follow[i]) ;
 			}
 			ctx.setVariable("followerList", follower);
 			String[] follow = repository.getFollower(user.getId());
-			for (int i = 0; i < timeline.length; i++) {
+			for (int i = 0; i < follow.length; i++) {
 				following[i] = new User(follow[i]) ;
 			}
 			ctx.setVariable("followingList", following);
@@ -71,21 +71,31 @@ public class FakeTwitterController {
 	}
 	
 	@RequestMapping(value = "/users", method = RequestMethod.POST)
-    public String newPost(@RequestParam("postContent") String content) {
+    public void newPost(@RequestParam("postContent") String content) {
 		User user = new User(SecurityInfo.getUid());
 		Post post = new Post(user.getId(), new Date(), content);
 		repository.addPost(post);
     }
 	
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.POST)
-    public String follow(@PathVariable("id") int id) {
+    public void follow(@PathVariable("id") int id) {
         repository.addFollower(id, SecurityInfo.getUid());
     }
 	
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.POST)
-    public String unfollow(@PathVariable("id") int id) {
+    public void unfollow(@PathVariable("id") int id) {
         repository.deleteFollower(id, SecurityInfo.getUid());
     }
 	
+	@RequestMapping(value = "/users/{id}", method = RequestMethod.POST)
+    public void search(@RequestParam("search") String user) {
+		String[] users = repository.search(user);
+		WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
+		User[] result;
+		for (int i = 0; i < users; i++) {
+			result[i] = new User(users[i]);
+		}
+		ctx.setVariable("searchResult",);
+    }
 	
 }

@@ -1,16 +1,23 @@
 package de.hska.vs2;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 
 @Configuration
-public class FakeTwitterConfig {
+@EnableWebMvc
+@ComponentScan(basePackages = { "de.hska.vs2" })
+public class FakeTwitterConfig extends WebMvcConfigurerAdapter {
 
-	// Klasse ist so noch nicht vollständig, für die Template-Methoden fehlt in dieser Form noch weiterer Input, ggfs. auch weitere Imports!!!
+	//TODO: Klasse ist so noch nicht vollständig, für die Template-Methoden fehlt in dieser Form noch weiterer Input, ggfs. auch weitere Imports!!!
 	// siehe hierzu Kapitel 4.3 des Thymeleaf-Tutorials
 
 	@Bean
@@ -68,6 +75,12 @@ public class FakeTwitterConfig {
 		final RedisTemplate< String, Object > template = new RedisTemplate< String, Object >();
 		template.setConnectionFactory( getConnectionFactory() );
 		return template;
+	}
+
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(new LocaleChangeInterceptor());
+		registry.addInterceptor(new SessionInterceptor()).addPathPatterns("/auth/**");
 	}
 
 }

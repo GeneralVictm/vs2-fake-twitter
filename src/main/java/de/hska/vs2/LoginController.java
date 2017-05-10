@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.time.Duration;
@@ -23,6 +24,7 @@ public class LoginController {
     private static final Duration TIMEOUT = Duration.ofMinutes(15);
 
     //TODO: ist nur C&P aus den Vorlesungsfolien, muss ggfs. noch an eigene Bedürfnisse angepasst werden
+    //TODO: User-Objekt (+ Klasse) erstellen
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@ModelAttribute("user") @Valid User user, HttpServletResponse response, Model model) {
@@ -39,8 +41,8 @@ public class LoginController {
 
     @RequestMapping(value = "/blog/logout", method = RequestMethod.GET)
     public String logout() {
-        if (SimpleSecurity.isSignedIn()) {
-            String name = SimpleSecurity.getName();
+        if (SecurityInfo.isSignedIn()) {
+            String name = SecurityInfo.getName();
             repository.deleteAuth(name);
         }
         return "redirect:/";

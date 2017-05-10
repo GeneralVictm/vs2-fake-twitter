@@ -25,7 +25,7 @@
             </div>
 
             <div class="col-md-2 col-md-offset-1">
-                <button type="button" class="btn btnInfo" id="neu">NEU</button>
+                <button type="button" class="btn btnInfo" id="neu" onclick="newPost()">NEU</button>
             </div>
 
             <div class="col-md-offset-3 col-md-2">
@@ -115,5 +115,19 @@
             </div>
         </div>
     </div>
+    <div id="overlay"></div>
+	<div id="newPost">
+   		<h2  >Neuer Post</h2>
+   		<textarea id="postContent"  placeholder="Was passiert gerade?"></textarea>
+   		<button id="postButton" type="button" class="btn btnInfo">Posten</button>
+    </div>
+    <script>
+    	function newPost() {
+    		var popup = document.getElementById("overlay");
+    		popup.classList.toggle("show");
+    		popup = document.getElementById("newPost");
+    		popup.classList.toggle("show");
+    	}
+    </script>
 </body>
 </html>

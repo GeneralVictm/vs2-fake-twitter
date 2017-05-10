@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by sasch on 10.05.2017.
+ * Created by Sascha on 10.05.2017.
+ *
+ * Checks for existing Session Cookies to set SecurityInfo
  */
 public class SessionInterceptor extends HandlerInterceptorAdapter {
 
@@ -33,5 +35,5 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
         return true;
     }
 
-    // ggfs. SecurityInfo in afterCompletion zurücksetzen? (user = null)
+    // SecurityInfo in afterCompletion zurücksetzen! (user = null)
 }

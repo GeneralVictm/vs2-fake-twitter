@@ -6,15 +6,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.thymeleaf.ITemplateEngine;
+import org.thymeleaf.context.WebContext;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by sasch on 09.05.2017.
+ * Created by Sascha on 09.05.2017.
+ *
+ * Controller to handle Login, Logout and active Sessions
  */
 @Controller
 public class LoginController {
@@ -50,7 +56,7 @@ public class LoginController {
     
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public void process(final HttpServletRequest request, final HttpServletResponse response,
-            final ServletContext servletContext, final ITemplateEngine templateEngine) {
+                        final ServletContext servletContext, final ITemplateEngine templateEngine) {
 
 		WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 		

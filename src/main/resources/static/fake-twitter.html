@@ -21,8 +21,10 @@
 
         <div class="row">
             <div class="col-md-4">
-              <input class="form-control input-lg" type="text" id="search" placeholder="Search" onkeydown="if (event.keyCode == 13) searchResults()"/>
-            </div>
+		    <form method="post" action="#">
+             		<input class="form-control input-lg" type="text" id="search" placeholder="Search" onkeydown="if (event.keyCode == 13) searchResults()"/>
+		    </form>
+		</div>
 
             <div class="col-md-2 col-md-offset-1">
                 <button type="button" class="btn btnInfo" id="neu" onclick="newPost()">NEU</button>

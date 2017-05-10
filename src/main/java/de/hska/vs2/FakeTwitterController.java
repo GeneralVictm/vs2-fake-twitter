@@ -29,7 +29,7 @@ public class FakeTwitterController {
 				posts[i] = new Post(timeline[i]) ;
 			}
 			ctx.setVariable("globalPostList", posts);
-			String[] timeline = repository.getPersonalTimeline(user.getId());
+			 timeline = repository.getPersonalTimeline(user.getId());
 			for (int i = 0; i < timeline.length; i++) {
 				posts[i] = new Post(timeline[i]) ;
 			}
@@ -39,9 +39,9 @@ public class FakeTwitterController {
 				follower[i] = new User(follow[i]) ;
 			}
 			ctx.setVariable("followerList", follower);
-			String[] follow = repository.getFollower(user.getId());
+			 follow = repository.getFollower(user.getId());
 			for (int i = 0; i < timeline.length; i++) {
-				following[i] = new User(follow[i]) ;
+				following[i] = new User(follow[i]);
 			}
 			ctx.setVariable("followingList", following);
 			templateEngine.process("fake-twitter", ctx, response.getWriter());
@@ -55,7 +55,7 @@ public class FakeTwitterController {
 				posts[i] = new Post(timeline[i]) ;
 			}
 			ctx.setVariable("lokalPostList", posts);
-			String[] follow = repository.getFollower(user.getId());
+			 follow = repository.getFollower(user.getId());
 			for (int i = 0; i < follow.length; i++) {
 				follower[i] = new User(follow[i]) ;
 			}
@@ -67,7 +67,7 @@ public class FakeTwitterController {
 				}
 			}
 			ctx.setVariable("isFollowing", isFollowing);
-			String[] follow = repository.getFollower(user.getId());
+			 follow = repository.getFollower(user.getId());
 			for (int i = 0; i < follow.length; i++) {
 				following[i] = new User(follow[i]) ;
 			}

@@ -163,7 +163,7 @@ public class RedisRepository {
 
         for (int i = 0; i < followers.length; i++) {
             String followerID = followers[i];
-            String key = "GlobalTimeline:" + followerID;
+            key = "GlobalTimeline:" + followerID;
             template.opsForHash().put(key, "post" + pid, pid);
         }
 
@@ -235,14 +235,14 @@ public class RedisRepository {
 
         // DEL FROM TIMELINES-----------------------------------------------------------------------------------------------------------
 
-        String key = "personalTimeline:" + post.getUser().getId();
+         key = "personalTimeline:" + post.getUser().getId();
         template.opsForHash().delete(key, "post" + pid);          //hier post + pid, damit mehrere Posts mit eindeutigem Key sind.
 
         String[] followers = getFollower(post.getUser().getId());
 
         for (int i = 0; i < followers.length; i++) {
             String followerID = followers[i];
-            String key = "GlobalTimeline:" + followerID;
+             key = "GlobalTimeline:" + followerID;
             template.opsForHash().delete(key, "post" + pid);
         }
 

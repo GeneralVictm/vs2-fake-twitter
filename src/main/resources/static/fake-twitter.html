@@ -51,14 +51,26 @@
         <div class="row">
             <div class="col-md-12">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#home" class="tab">Beiträge</a></li>
-                    <li><a data-toggle="tab" href="#menu1"  class="tab">Verfolgte</a></li>
-                    <li><a data-toggle="tab" href="#menu2" class="tab">Verfolger</a></li>
+                    <li class="active"><a data-toggle="tab" href="#home" class="tab">Beiträge(global)</a></li>
+                    <li><a data-toggle="tab" href="#menu1"  class="tab">Beiträge(lokal)</a></li>
+                    <li><a data-toggle="tab" href="#menu2"  class="tab">Verfolgte</a></li>
+                    <li><a data-toggle="tab" href="#menu3" class="tab">Verfolger</a></li>
                 </ul>
 
                 <div class="tab-content">
                     <div id="home" class="tab-pane fade in active">
                         <tbody class="list-group" th:remove="all-but-first">
+                        	<tr class="list-group-item" th:each="post : ${globalPostList}">
+                                <div class="media">
+                                    <div class="media-left media-top">
+                                        <img src="img_avatar1.png" class="media-object timelineIcon">
+                                    </div>
+                                    <div class="media-body">
+                                        <h4 class="media-heading" th:text="${post.user.name}">James Doe <em class="small" th:text="${#dates.format(post.timestamp, 'HH:mm dd-MMM-yyyy')}">Sonntag, 17:54 Uhr</em></h4>
+                                        <p th:text="${post.content}">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et</p>
+                                    </div>
+                                </div>
+                            </tr>
                             <tr class="list-group-item">
                                 <div class="media">
                                     <div class="media-left media-top">
@@ -67,17 +79,6 @@
                                     <div class="media-body">
                                         <h4 class="media-heading">John Doe <em class="small">Gestern, 12:30 Uhr</em></h4>
                                         <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                                    </div>
-                                </div>
-                            </tr>
-                            <tr class="list-group-item" th:each="user : ${globalUserList}">
-                                <div class="media">
-                                    <div class="media-left media-top">
-                                        <img src="img_avatar1.png" class="media-object timelineIcon">
-                                    </div>
-                                    <div class="media-body">
-                                        <h4 class="media-heading" th:text="${post.user.name}">James Doe <em class="small" th:text="${#dates.format(post.timestamp, 'HH:mm dd-MMM-yyyy')}">Sonntag, 17:54 Uhr</em></h4>
-                                        <p th:text="${post.content}">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et</p>
                                     </div>
                                 </div>
                             </tr>
@@ -101,6 +102,10 @@
                     <div id="menu2" class="tab-pane fade">
                         <h3>Menu 2</h3>
                         <p>Some content in menu 2.</p>
+                    </div>
+                    <div id="menu3" class="tab-pane fade">
+                        <h3>Menu 3</h3>
+                        <p>Some content in menu 3.</p>
                     </div>
                 </div>
             </div>

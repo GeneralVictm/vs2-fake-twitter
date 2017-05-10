@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Fake-Twitter</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="css.css" rel="stylesheet" type="text/css">
+    
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Fake-Twitter</h1>
+
+        <div class="row">
+            <div class="col-md-4">
+              <input class="form-control input-lg" type="text" id="search" placeholder="Search" onkeydown="if (event.keyCode == 13) searchResults()"/>
+            </div>
+
+            <div class="col-md-2 col-md-offset-1">
+                <button type="button" class="btn btnInfo" id="neu" onclick="newPost()">NEU</button>
+            </div>
+
+            <div class="col-md-offset-3 col-md-2">
+                <button type="button" class="btn btnInfo logOut">Ausloggen</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 col-md-offset-8">
+                <div class="media">
+                <div class="media-body">
+                    <h4 class="media-heading" id="usernameTop"><em th:text="${currentUser.name}">@funny_name</em></h4>
+                    <button type="button" class="btn btnInfo" th:text="${followingCount}">12<br />Verfolgte</button>
+                    <button type="button" class="btn btnInfo" th:text="${followerCount}">10<br />Verfolger</button>
+                </div>
+                <div class="media-right media-middle">
+                    <img src="img_avatar1.png" class="media-object" id="usericon">
+                </div>
+            	</div>
+            	<div class="col-md-offset-3 col-md-2">
+        			<button id="follow" type="button" class="btn btnInfo">Folgen</button>
+        		</div>
+            </div>
+        </div>
+        
+
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#home" class="tab">Beiträge</a></li>
+                    <li><a data-toggle="tab" href="#menu1"  class="tab">Verfolgte</a></li>
+                    <li><a data-toggle="tab" href="#menu2" class="tab">Verfolger</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="home" class="tab-pane fade in active">
+                        <tbody class="list-group" th:remove="all-but-first">
+                        	 <tr class="list-group-item" th:each="post : ${lokalPostList}">
+                                <div class="media">
+                                    <div class="media-left media-top">
+                                        <img src="img_avatar1.png" class="media-object timelineIcon">
+                                    </div>
+                                    <div class="media-body">
+                                        <h4 class="media-heading" th:text="${post.user.name}">James Doe <em class="small" th:text="${#dates.format(post.timestamp, 'HH:mm dd-MMM-yyyy')}">Sonntag, 17:54 Uhr</em></h4>
+                                        <p th:text="${post.content}">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et</p>
+                                    </div>
+                                </div>
+                            </tr>
+                            <tr class="list-group-item">
+                                <div class="media">
+                                    <div class="media-left media-top">
+                                        <img src="img_avatar1.png" class="media-object timelineIcon">
+                                    </div>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">John Doe <em class="small">Gestern, 12:30 Uhr</em></h4>
+                                        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+                                    </div>
+                                </div>
+                            </tr>
+                            <tr class="list-group-item">
+                                <div class="media">
+                                    <div class="media-left media-top">
+                                        <img src="img_avatar1.png" class="media-object timelineIcon">
+                                    </div>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">Jane Doe <em class="small">2.4.2017, 7:23 Uhr Uhr</em></h4>
+                                        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore</p>
+                                    </div>
+                                </div>
+                            </tr>
+                        </tbody>
+                    </div>
+                    <div id="menu1" class="tab-pane fade">
+                        <h3>Menu 1</h3>
+                        <p>Some content in menu 1.</p>
+                    </div>
+                    <div id="menu2" class="tab-pane fade">
+                        <h3>Menu 2</h3>
+                        <p>Some content in menu 2.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="pager">
+                    <li class="disabled"><a class="pageButtons" href="#">Neuer</a></li>
+                    <li><a href="#" class="pageButtons">Älter</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="overlay"></div>
+	<div id="newPost">
+   		<h2  >Neuer Post</h2>
+   		<textarea id="postContent"  placeholder="Was passiert gerade?"></textarea>
+   		<button id="postButton" type="button" class="btn btnInfo" onclick="hideNewPost()">Posten</button>
+    </div>
+    <div id="searchRes">
+    	<h2>Suchergebnisse</h2>
+    	<tbody th:remove="all-but-first">
+    		<div><tr th:each="user : ${searchResults}">
+    			<a href="/user" th:text=${user.name}">John Doe</a>
+    		</tr></div>
+    		<div><tr><a>Jane Doe</a></tr></div>
+    		<div><tr><a>Johnathan</a></tr></div>
+    	</tbody>
+    	<button type="button" class="btn btnInfo" onclick="hideSearchResults()">Cancel</button>
+    </div>
+    <script>
+    	function newPost() {
+    		document.getElementById("overlay").style.visibility = 'visible';
+    		document.getElementById("newPost").style.visibility = 'visible';
+    	}
+    	
+    	function hideNewPost() {
+    		document.getElementById("overlay").style.visibility = 'hidden';
+    		document.getElementById("newPost").style.visibility = 'hidden';
+    	}
+    	
+    	function searchResults() {
+    		document.getElementById("overlay").style.visibility = 'visible';
+    		document.getElementById("searchRes").style.visibility = 'visible';
+    	}
+    	
+    	function hideSearchResults() {
+    		document.getElementById("overlay").style.visibility = 'hidden';
+    		document.getElementById("searchRes").style.visibility = 'hidden';
+    	}
+    	    	
+    </script>
+</body>
+</html>

@@ -13,4 +13,8 @@ public class RegisterController {
 		templateEngine.process("register", ctx, response.getWriter());
 	}
 	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String register() {
+        
+    }
 }

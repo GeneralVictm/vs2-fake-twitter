@@ -53,7 +53,7 @@ public class RedisRepository {
         return template.opsForValue().get("uname:" + uname + ":uid");
     }
 
-    public String getUserPass (String uid) {
+    public String getUserPassword (String uid) {
         // sollte nicht nötig sein?
         return "";
     }

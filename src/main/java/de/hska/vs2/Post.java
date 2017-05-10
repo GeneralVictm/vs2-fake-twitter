@@ -34,7 +34,7 @@ public class Post {
 
     }
 
-    public Post (String pid){
+    public Post (String pid) throws Exception {
         this.pid = pid;
         this.uid = repository.getPostUser(pid);
         this.timestamp = repository.getPostTimestamp(pid);

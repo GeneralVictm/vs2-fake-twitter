@@ -16,8 +16,8 @@ public class User {
 
     private String uname;
     private String uid;
-    private int countFollower;
-    private int countFollowing;
+    private long countFollower;
+    private long countFollowing;
     private String[] follower;
     private String[] following;
     private String password;
@@ -26,13 +26,13 @@ public class User {
 
 
     public User(String uid){
-        this.uname = repository.getName(uid);
+        this.uname = repository.getUserName(uid);
         uid = uid;
-        this.countFollower = repository.getCountFollowers(uid);
-        this.countFollowing = repository.getCountFollowing(uid);
+        this.countFollower = repository.getFollowerCount(uid);
+        this.countFollowing = repository.getFollowingCount(uid);
         this.follower = repository.getFollower(uid);
         this.following = repository.getFollowing(uid);
-        this.password = repository.getPassword(uid);
+        this.password = repository.getUserPassword(uid);
 
     }
 

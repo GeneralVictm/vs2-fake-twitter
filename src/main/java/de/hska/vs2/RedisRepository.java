@@ -69,25 +69,25 @@ public class RedisRepository {
     }
 
     public long getFollowerCount(String uid) {
-        return template.opsForSet().size("uid:" + uid + "follower");
+        return template.opsForSet().size("uid:" + uid + ":follower");
     }
 
     public long getFollowingCount(String uid) {
-        return template.opsForSet().size("uid:" + uid + "following");
+        return template.opsForSet().size("uid:" + uid + ":following");
     }
 
     public String[] getFollower(String uid) {
-        Set<String> followers = template.opsForSet().members("uid:" + uid + "follower");
+        Set<String> followers = template.opsForSet().members("uid:" + uid + ":follower");
         return followers.toArray(new String[followers.size()]);
     }
 
     public String[] getFollowing(String uid) {
-        Set<String> following = template.opsForSet().members("uid:" + uid + "following");
+        Set<String> following = template.opsForSet().members("uid:" + uid + ":following");
         return following.toArray(new String[following.size()]);
     }
 
-    public String[] getAllUsers() {//---------------------------------------------------------------------------------------------------
-        Set<String> users = template.opsForSet().members("uid:" + uid + ":user");
+    public String[] getAllUsers() {
+        Set<String> users = template.opsForSet().members("user");
         return users.toArray(new String[users.size()]);
     }
 
@@ -104,13 +104,13 @@ public class RedisRepository {
     }
 
     public String[] getPersonalTimeline(String uid, long start, long end) {
-        List<String> timeline = template.opsForList().range("uid:" + uid + "personal_timeline", start, end);
+        List<String> timeline = template.opsForList().range("uid:" + uid + ":personal_timeline", start, end);
         return timeline.toArray(new String[timeline.size()]);
     }
 
     public String[] getPersonalTimeline(String uid) {
-        long length = template.opsForList().size("uid:" + uid + "personal_timeline");
-        List<String> timeline = template.opsForList().range("uid:" + uid + "personal_timeline", 0, length);
+        long length = template.opsForList().size("uid:" + uid + ":personal_timeline");
+        List<String> timeline = template.opsForList().range("uid:" + uid + ":personal_timeline", 0, length);
         return timeline.toArray(new String[timeline.size()]);
     }
 
@@ -138,7 +138,7 @@ public class RedisRepository {
         template.opsForHash().put(key, "uname", user.getName());
         template.opsForHash().put(key, "pass", user.getPass());
 
-        template.opsForValue().set("uname:" + user.getName() + "uid", uid);
+        template.opsForValue().set("uname:" + user.getName() + ":uid", uid);
         template.opsForSet().add("user", key);
         user.setUid(uid);
         return user;
@@ -147,24 +147,21 @@ public class RedisRepository {
     public Post addPost(Post post) {
         // write data from post object into redis TODO: and add new post to timelines
         String pid = UUID.randomUUID().toString();
-        template.opsForValue().set("pid:" + pid + "content", post.getContent());
-        template.opsForValue().set("pid:" + pid + "uid", post.getUser().getId());
+        template.opsForValue().set("pid:" + pid + ":content", post.getContent());
+        template.opsForValue().set("pid:" + pid + ":uid", post.getUser().getId());
 
         DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm", Locale.GERMAN);
         String timestamp = format.format(post.getTimestamp());
-        template.opsForValue().set("pid:" + pid + "timestamp", timestamp);
+        template.opsForValue().set("pid:" + pid + ":timestamp", timestamp);
 
         // ADD TIMELINES-----------------------------------------------------------------------------------------------------------
 
-        String key = "personalTimeline:" + post.getUser().getId();
-        template.opsForHash().put(key, "post" + pid, pid);          //hier post + pid, damit mehrere Posts mit eindeutigem Key sind.
+        template.opsForList().leftPush("global_timeline", pid);          //hier post + pid, damit mehrere Posts mit eindeutigem Key sind.
 
         String[] followers = getFollower(post.getUser().getId());
 
         for (int i = 0; i < followers.length; i++) {
-            String followerID = followers[i];
-            key = "GlobalTimeline:" + followerID;
-            template.opsForHash().put(key, "post" + pid, pid);
+            template.opsForList().leftPush("uid:" + followers[i] + ":personal_timeline", pid);
         }
 
         post.setPid(pid);
@@ -177,10 +174,10 @@ public class RedisRepository {
         // add posts to timeline?
         //Set<String> following = template.opsForSet().members("uid:" + uid + "following");
         //Set<String> following = template.opsForSet().members("uid:" + uid + "follower");
-        String key = "uid:" + uid + "following";
+        String key = "uid:" + uid + ":following";
         template.opsForSet().add(key, followedID);
 
-        key = "uid:" + followedID + "follower";
+        key = "uid:" + followedID + ":follower";
         template.opsForSet().add(key, uid);
 
     }
@@ -190,10 +187,10 @@ public class RedisRepository {
         // add posts to timeline?
         //Set<String> following = template.opsForSet().members("uid:" + uid + "following");
         //Set<String> following = template.opsForSet().members("uid:" + uid + "follower");
-        String key = "uid:" + uid + "following";
+        String key = "uid:" + uid + ":following";
         template.opsForSet().remove(key, followedID);
 
-        key = "uid:" + followedID + "follower";
+        key = "uid:" + followedID + ":follower";
         template.opsForSet().remove(key, uid);
 
     }
@@ -208,7 +205,7 @@ public class RedisRepository {
         template.opsForHash().delete(key, "uname");
         template.opsForHash().delete(key, "pass");
 
-        key = "uname:" + user.getName() + "uid";
+        key = "uname:" + user.getName() + ":uid";
         template.delete(key);
         //template.opsForValue().set("uname:" + user.getName() + "uid", uid);
         template.opsForSet().remove("user", key);
@@ -220,16 +217,15 @@ public class RedisRepository {
         // write data from post object into redis TODO: and add new post to timelines
         String pid = post.getPid();
 
-        String key = "pid:" + pid + "content";
+        String key = "pid:" + pid + ":content";
         template.delete(key);
-        key = "pid:" + pid + "uid";
+        key = "pid:" + pid + ":uid";
         template.delete(key);
         //template.opsForValue().set("pid:" + pid + "content", post.getContent());
         //template.opsForValue().set("pid:" + pid + "uid", post.getUser().getId());
 
 
-        String timestamp = format.format(post.getTimestamp());
-        key = "pid:" + pid + "timestamp";
+        key = "pid:" + pid + ":timestamp";
         template.delete(key);
         //template.opsForValue().set("pid:" + pid + "timestamp", timestamp);
 

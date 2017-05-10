@@ -41,7 +41,7 @@ public class LoginController {
             model.addAttribute("user", user.getName());
             return "redirect:users/" + user.getName(); // wenn es nicht funktioniert: kopletter Pfad angeben
         }
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new User()); // User-Konstruktor ohne Parameter nötig oder geht das auch schöner?
         return "redirect:login"; // gleiches wie oben
     }
 

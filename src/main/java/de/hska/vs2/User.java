@@ -52,6 +52,14 @@ public class User {
         return password;
     }
 
+    public boolean setUid(String uid) {
+        if (this.uid == null) {
+            this.uid = uid;
+            return true;
+        }
+        return false;
+    }
+
     public User(String uid){
         this.uname = repository.getUserName(uid);
         uid = uid;
@@ -63,4 +71,9 @@ public class User {
 
     }
 
+    public User(String uname, String password) {
+        this.uid = null;
+        this.uname = uname;
+        this.password = password;
+    }
 }

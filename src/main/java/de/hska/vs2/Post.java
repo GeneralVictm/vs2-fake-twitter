@@ -11,13 +11,16 @@ public class Post {
     @Autowired
     private RedisRepository repository;
     private String pid;
-    private String uid;
+    private User user;
     private Date timestamp;
     private String content;
 
+    public String getPid() {
+        return pid;
+    }
 
-    public String getUid() {
-        return uid;
+    public User getUser() {
+        return user;
     }
 
     public Date getTimestamp() {
@@ -28,19 +31,25 @@ public class Post {
         return content;
     }
 
+    public boolean setPid(String pid) {
+        if (this.pid == null) {
+            this.pid = pid;
+            return true;
+        }
+        return false;
+    }
 
     public Post (String uid, Date timestamp, String content){
-        this.uid = uid;
-        this.timestamp = new Date();
+        this.pid = null;
+        this.user = new User(uid);
+        this.timestamp = timestamp;
         this.content = content;
-
     }
 
     public Post (String pid) throws Exception {
         this.pid = pid;
-        this.uid = repository.getPostUser(pid);
+        this.user = new User(repository.getPostUser(pid));
         this.timestamp = repository.getPostTimestamp(pid);
         this.content = repository.getPostContent(pid);
-
     }
 }

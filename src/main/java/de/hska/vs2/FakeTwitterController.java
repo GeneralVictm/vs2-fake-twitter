@@ -60,6 +60,13 @@ public class FakeTwitterController {
 				follower[i] = new User(follow[i]) ;
 			}
 			ctx.setVariable("followerList", follower);
+			boolean isFollowing = false;
+			for(int i = 0; i < follow.length; i++){
+				if(follow[i].getId() == id){
+					isFollowing = true;
+				}
+			}
+			ctx.setVariable("isFollowing", isFollowing);
 			String[] follow = repository.getFollower(user.getId());
 			for (int i = 0; i < follow.length; i++) {
 				following[i] = new User(follow[i]) ;

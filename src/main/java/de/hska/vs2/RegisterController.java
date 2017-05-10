@@ -16,9 +16,9 @@ public class RegisterController {
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(@RequestParam("name") String name, @RequestParam("password") String passw) {
-		if (repository.isUserNameFree(name)) {
-			User user = new User(name, passw);
+    public String register(@RequestParam("name") String name, @RequestParam("password") String password, @RequestParam("passw") String passw) {
+		if (repository.isUserNameFree(name) && password == passw) {
+			User user = new User(name, password);
 			repository.addUser(user);
             String auth = repository.addAuth(user.getName(), TIMEOUT.getSeconds(), TimeUnit.SECONDS);
             Cookie cookie = new Cookie("auth", auth);

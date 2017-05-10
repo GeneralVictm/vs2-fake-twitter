@@ -71,18 +71,20 @@ public class FakeTwitterController {
 	}
 	
 	@RequestMapping(value = "/users", method = RequestMethod.POST)
-    public String newPost() {
-        
+    public String newPost(@RequestParam("postContent") String content) {
+		User user = new User(SecurityInfo.getUid());
+		Post post = new Post(user.getId(), new Date(), content);
+		repository.addPost(post);
     }
 	
-	@RequestMapping(value = "/users", method = RequestMethod.POST)
-    public String follow() {
-        
+	@RequestMapping(value = "/users/{id}", method = RequestMethod.POST)
+    public String follow(@PathVariable("id") int id) {
+        repository.addFollower(id, SecurityInfo.getUid());
     }
 	
-	@RequestMapping(value = "/users", method = RequestMethod.POST)
-    public String unfollow() {
-        
+	@RequestMapping(value = "/users/{id}", method = RequestMethod.POST)
+    public String unfollow(@PathVariable("id") int id) {
+        repository.deleteFollower(id, SecurityInfo.getUid());
     }
 	
 	

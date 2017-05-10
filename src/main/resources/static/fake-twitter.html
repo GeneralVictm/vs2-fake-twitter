@@ -37,9 +37,9 @@
             <div class="col-md-4 col-md-offset-8">
                 <div class="media">
                 <div class="media-body">
-                    <h4 class="media-heading" id="usernameTop"><em>@funny_name</em></h4>
-                    <button type="button" class="btn btnInfo">12<br />Verfolgte</button>
-                    <button type="button" class="btn btnInfo">10<br />Verfolger</button>
+                    <h4 class="media-heading" id="usernameTop"><em th:text="${currentUser.name}">@funny_name</em></h4>
+                    <button type="button" class="btn btnInfo" th:text="${followingCount}">12<br />Verfolgte</button>
+                    <button type="button" class="btn btnInfo" th:text="${followerCount}">10<br />Verfolger</button>
                 </div>
                 <div class="media-right media-middle">
                     <img src="img_avatar1.png" class="media-object" id="usericon">
@@ -58,8 +58,8 @@
 
                 <div class="tab-content">
                     <div id="home" class="tab-pane fade in active">
-                        <ul class="list-group">
-                            <li class="list-group-item">
+                        <tbody class="list-group" th:remove="all-but-first">
+                            <tr class="list-group-item">
                                 <div class="media">
                                     <div class="media-left media-top">
                                         <img src="img_avatar1.png" class="media-object timelineIcon">
@@ -69,19 +69,19 @@
                                         <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
                                     </div>
                                 </div>
-                            </li>
-                            <li class="list-group-item">
+                            </tr>
+                            <tr class="list-group-item" th:each="user : ${globalUserList}">
                                 <div class="media">
                                     <div class="media-left media-top">
                                         <img src="img_avatar1.png" class="media-object timelineIcon">
                                     </div>
                                     <div class="media-body">
-                                        <h4 class="media-heading">James Doe <em class="small">Sonntag, 17:54 Uhr</em></h4>
-                                        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et</p>
+                                        <h4 class="media-heading" th:text="${post.user.name}">James Doe <em class="small" th:text="${#dates.format(post.timestamp, 'HH:mm dd-MMM-yyyy')}">Sonntag, 17:54 Uhr</em></h4>
+                                        <p th:text="${post.content}">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et</p>
                                     </div>
                                 </div>
-                            </li>
-                            <li class="list-group-item">
+                            </tr>
+                            <tr class="list-group-item">
                                 <div class="media">
                                     <div class="media-left media-top">
                                         <img src="img_avatar1.png" class="media-object timelineIcon">
@@ -91,8 +91,8 @@
                                         <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore</p>
                                     </div>
                                 </div>
-                            </li>
-                        </ul>
+                            </tr>
+                        </tbody>
                     </div>
                     <div id="menu1" class="tab-pane fade">
                         <h3>Menu 1</h3>

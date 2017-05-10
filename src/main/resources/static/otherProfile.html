@@ -21,8 +21,10 @@
 
         <div class="row">
             <div class="col-md-4">
+		<form method="post" action="#">
               <input class="form-control input-lg" type="text" id="search" placeholder="Search" onkeydown="if (event.keyCode == 13) searchResults()"/>
-            </div>
+		    </form>
+		</div>
 
             <div class="col-md-2 col-md-offset-1">
                 <button type="button" class="btn btnInfo" id="neu" onclick="newPost()">NEU</button>
@@ -47,7 +49,7 @@
             	</div>
             	<div class="col-md-offset-3 col-md-2">
             		<form action="#" method="post">
-            			<button id="follow" type="button" class="btn btnInfo" name="action" value="follow" th:class="§{isFollowing} ? 'Folgen' : 'Entfolgen'">Folgen</button>
+            			<button id="follow" type="button" class="btn btnInfo" name="action" value="follow" th:class="§{isFollowing} ? 'Entfolgen' : 'Folgen'">Folgen</button>
             		</form>
         		</div>
             </div>

@@ -3,6 +3,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 public class FakeTwitterController {
+	
+	private RedisRepository repository;
 
 	public String index() {
 		return "index";
@@ -22,22 +24,22 @@ public class FakeTwitterController {
 			ctx.setVariable("currentUser.name", user.getName());
 			ctx.setVariable("followingCount", user.getCountFollowing());
 			ctx.setVariable("followerCount", user.getCountFollower());
-			String[] timeline = RedisRepository.getGlobalTimeline(user.getId());
+			String[] timeline = repository.getGlobalTimeline(user.getId());
 			for (int i = 0; i < timeline.length; i++) {
 				posts[i] = new Post(timeline[i]) ;
 			}
 			ctx.setVariable("globalPostList", posts);
-			String[] timeline = RedisRepository.getPersonalTimeline(user.getId());
+			String[] timeline = repository.getPersonalTimeline(user.getId());
 			for (int i = 0; i < timeline.length; i++) {
 				posts[i] = new Post(timeline[i]) ;
 			}
 			ctx.setVariable("lokalPostList", posts);
-			String[] follow = RedisRepository.getFollower(user.getId());
+			String[] follow = repository.getFollower(user.getId());
 			for (int i = 0; i < timeline.length; i++) {
 				follower[i] = new User(follow[i]) ;
 			}
 			ctx.setVariable("followerList", follower);
-			String[] follow = RedisRepository.getFollower(user.getId());
+			String[] follow = repository.getFollower(user.getId());
 			for (int i = 0; i < timeline.length; i++) {
 				following[i] = new User(follow[i]) ;
 			}
@@ -48,17 +50,17 @@ public class FakeTwitterController {
 			ctx.setVariable("currentUser.name", user2.getName());
 			ctx.setVariable("followingCount", user2.getCountFollowing());
 			ctx.setVariable("followerCount", user2.getCountFollower());
-			String[] timeline = RedisRepository.getPersonalTimeline(id);
+			String[] timeline = repository.getPersonalTimeline(id);
 			for (int i = 0; i < timeline.length; i++) {
 				posts[i] = new Post(timeline[i]) ;
 			}
 			ctx.setVariable("lokalPostList", posts);
-			String[] follow = RedisRepository.getFollower(user.getId());
+			String[] follow = repository.getFollower(user.getId());
 			for (int i = 0; i < timeline.length; i++) {
 				follower[i] = new User(follow[i]) ;
 			}
 			ctx.setVariable("followerList", follower);
-			String[] follow = RedisRepository.getFollower(user.getId());
+			String[] follow = repository.getFollower(user.getId());
 			for (int i = 0; i < timeline.length; i++) {
 				following[i] = new User(follow[i]) ;
 			}

@@ -149,20 +149,108 @@ public class RedisRepository {
 
         // ADD TIMELINES-----------------------------------------------------------------------------------------------------------
 
+        String key = "personalTimeline:"+post.getUser().getId();
+        template.opsForHash().put(key, "post" + pid, pid);          //hier post + pid, damit mehrere Posts mit eindeutigem Key sind.
+
+        String[] followers = getFollower(post.getUser().getId());
+
+        for (int i, i<followers.length, i++){
+            String followerID = followers[i];
+            String key = "GlobalTimeline:" + followerID;
+            template.opsForHash().put(key, "post" + pid, pid);
+        }
+
         post.setPid(pid);
         return post;
     }
 
-    public void addFollowing (String user, String follower) {
-        // add follower to users list and user to followers list
+
+
+
+
+
+
+
+
+
+    public void addFollowing (String uid, String followedID) {
+        // add uid to followed follower-list and followedID to user's followed-list
         // add posts to timeline?
+        //Set<String> following = template.opsForSet().members("uid:" + uid + "following");
+        //Set<String> following = template.opsForSet().members("uid:" + uid + "follower");
+        String key = "uid:" + uid + "following";
+        template.opsForSet().add(key,followedID);
+
+        key = "uid:" + followedID + "follower";
+        template.opsForSet().add(key,uid);
+
     }
 
-    public void deleteFollowing (String user, String follower) {
-        // delete follower from users list and user from followers list
-        // delete posts from timeline
+    public void deleteFollowing (String uid, String followedID) {
+        // add uid to followed follower-list and followedID to user's followed-list
+        // add posts to timeline?
+        //Set<String> following = template.opsForSet().members("uid:" + uid + "following");
+        //Set<String> following = template.opsForSet().members("uid:" + uid + "follower");
+        String key = "uid:" + uid + "following";
+        template.opsForSet().remove(key,followedID);
+
+        key = "uid:" + followedID + "follower";
+        template.opsForSet().remove(key,uid);
+
     }
 
-    //TODO: delete-Funktionen? (User, Posts, Follower ...)
+    public User deleteUser (User user) {
+        // write data from user object into redis
+        String uid = user.getId();
+        String key = "uid:" + uid + ":user";
+        template.opsForHash().delete(key, "uid");
+        //template.opsForHash().put(key, "firstName", user.getFirstName());
+        //template.opsForHash().put(key, "lastName", user.getLastName());
+        template.opsForHash().delete(key, "uname");
+        template.opsForHash().delete(key, "pass");
+
+        key = "uname:" + user.getName() + "uid"
+        template.delete( key );
+        //template.opsForValue().set("uname:" + user.getName() + "uid", uid);
+        template.opsForSet().remove("user", key);
+        user.setUid(uid);
+        return user;
+    }
+
+    public Post deletePost (Post post) {
+        // write data from post object into redis TODO: and add new post to timelines
+        String pid = post.getPid();
+
+        String key = "pid:" + pid + "content";
+        template.delete( key );
+        key = "pid:" + pid + "uid";
+        template.delete( key );
+        //template.opsForValue().set("pid:" + pid + "content", post.getContent());
+        //template.opsForValue().set("pid:" + pid + "uid", post.getUser().getId());
+
+
+        String timestamp = format.format(post.getTimestamp());
+        key = "pid:" + pid + "timestamp";
+        template.delete( key );
+        //template.opsForValue().set("pid:" + pid + "timestamp", timestamp);
+
+        // DEL FROM TIMELINES-----------------------------------------------------------------------------------------------------------
+
+        String key = "personalTimeline:"+post.getUser().getId();
+        template.opsForHash().delete(key, "post" + pid);          //hier post + pid, damit mehrere Posts mit eindeutigem Key sind.
+
+        String[] followers = getFollower(post.getUser().getId());
+
+        for (int i, i<followers.length, i++){
+            String followerID = followers[i];
+            String key = "GlobalTimeline:" + followerID;
+            template.opsForHash().delete(key, "post" + pid);
+        }
+
+        post.setPid(pid);
+        return post;
+    }
+
+
 
 }

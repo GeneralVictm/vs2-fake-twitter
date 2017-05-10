@@ -109,6 +109,34 @@ a{
 	margin-bottom: 15px;
 }
 
+#searchRes{
+	background: white;
+	margin: 0 auto;
+	margin-left: -200px;
+	width: 400px;
+	position: absolute;
+	top: 30%;
+	left: 50%;
+	border-radius: 5px;
+	visibility: hidden;
+}
+
+#searchRes a{
+	color: black;
+	font-size: 1.3em;
+	margin-left: 10px;
+}
+
+#searchRes a:hover{
+	text-decoration: none;
+	color: rgb(7, 175, 133);
+}
+
+#searchRes button{
+	margin: 10px auto;
+	display: block;
+}
+
 h2 {
 	margin-left: 10px;
 }

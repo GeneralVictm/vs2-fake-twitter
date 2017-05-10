@@ -36,12 +36,12 @@ public class FakeTwitterController {
 			for (int i = 0; i < timeline.length; i++) {
 				follower[i] = new User(follow[i]) ;
 			}
-			ctx.setVariable("", follower);
+			ctx.setVariable("followerList", follower);
 			String[] follow = RedisRepository.getFollower(user.getId());
 			for (int i = 0; i < timeline.length; i++) {
 				following[i] = new User(follow[i]) ;
 			}
-			ctx.setVariable("", following);
+			ctx.setVariable("followingList", following);
 			templateEngine.process("fake-twitter", ctx, response.getWriter());
 		} else {
 			User user2 = new User(id);
@@ -57,12 +57,12 @@ public class FakeTwitterController {
 			for (int i = 0; i < timeline.length; i++) {
 				follower[i] = new User(follow[i]) ;
 			}
-			ctx.setVariable("", follower);
+			ctx.setVariable("followerList", follower);
 			String[] follow = RedisRepository.getFollower(user.getId());
 			for (int i = 0; i < timeline.length; i++) {
 				following[i] = new User(follow[i]) ;
 			}
-			ctx.setVariable("", following);
+			ctx.setVariable("followingList", following);
 			templateEngine.process("otherProfile", ctx, response.getWriter());
 		}
 		

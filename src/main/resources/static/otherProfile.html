@@ -98,13 +98,23 @@
                             </tr>
                         </tbody>
                     </div>
-                    <div id="menu1" class="tab-pane fade">
-                        <h3>Menu 1</h3>
-                        <p>Some content in menu 1.</p>
+                   <div id="menu1" class="tab-pane fade">
+                        <tbody class="list-group-item" th:each="user : ${followingList}">
+                        	<div class="media">
+                        		<div class="media-left media-top">
+                        			<h4 classs="media-heading" th:text="${user.name}">-</h4>
+                        		</div>
+                        	</div>
+                        </tbody>
                     </div>
                     <div id="menu2" class="tab-pane fade">
-                        <h3>Menu 2</h3>
-                        <p>Some content in menu 2.</p>
+                        <tbody class="list-group-item" th:each="user : ${followerList}">
+                        	<div class="media">
+                        		<div class="media-left media-top">
+                        			<h4 classs="media-heading" th:text="${user.name}">-</h4>
+                        		</div>
+                        	</div>
+                        </tbody>
                     </div>
                 </div>
             </div>

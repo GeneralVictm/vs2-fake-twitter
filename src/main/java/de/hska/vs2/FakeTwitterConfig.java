@@ -1,5 +1,8 @@
 package de.hska.vs2;
 
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -16,10 +19,21 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = { "de.hska.vs2" })
-public class FakeTwitterConfig extends WebMvcConfigurerAdapter {
+public class FakeTwitterConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
 	//TODO: Klasse ist so noch nicht vollständig, für die Template-Methoden fehlt in dieser Form noch weiterer Input, ggfs. auch weitere Imports!!!
 	// siehe hierzu Kapitel 4.3 des Thymeleaf-Tutorials
+
+	private ApplicationContext applicationContext;
+
+	public FakeTwitterConfig() {
+		super();
+	}
+
+	public void setApplicationContext(final ApplicationContext applicationContext)
+			throws BeansException {
+		this.applicationContext = applicationContext;
+	}
 
 	@Bean
 	public SpringResourceTemplateResolver templateResolver() {
@@ -48,7 +62,7 @@ public class FakeTwitterConfig extends WebMvcConfigurerAdapter {
 	    // with specific cases when expressions in one template are reused
 	    // across different data types, so this flag is "false" by default
 	    // for safer backwards compatibility.
-	    templateEngine.setEnableSpringELCompiler(true);
+	    //templateEngine.setEnableSpringELCompiler(true);
 	    return templateEngine;
 	}
 	

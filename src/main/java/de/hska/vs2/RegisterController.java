@@ -25,7 +25,7 @@ public class RegisterController {
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public void process(final HttpServletRequest request, final HttpServletResponse response,
-                        final ServletContext servletContext, final ITemplateEngine templateEngine) {
+                        final ServletContext servletContext, final ITemplateEngine templateEngine) throws Exception {
 		
 		WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 		
@@ -40,10 +40,8 @@ public class RegisterController {
             String auth = repository.addAuth(user.getName(), TIMEOUT.getSeconds(), TimeUnit.SECONDS);
             Cookie cookie = new Cookie("auth", auth);
             response.addCookie(cookie);
-            model.addAttribute("user", user.getName());
             return "redirect:users/" + user.getName(); // wenn es nicht funktioniert: kopletter Pfad angeben
         }
-        model.addAttribute("user", new User()); // User-Konstruktor ohne Parameter nötig oder geht das auch schöner?
         return "redirect:login"; // gleiches wie oben
     }
 }

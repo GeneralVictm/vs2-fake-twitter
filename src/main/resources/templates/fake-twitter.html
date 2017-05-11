@@ -8,7 +8,7 @@
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href="css.css" rel="stylesheet" type="text/css">
+    <link href="../static/css.css" rel="stylesheet" type="text/css">
     
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
@@ -21,8 +21,8 @@
 
         <div class="row">
             <div class="col-md-4">
-		<form method="post" action="#">
-              <input class="form-control input-lg" type="text" id="search" placeholder="Search" onkeydown="if (event.keyCode == 13) searchResults()"/>
+		    <form method="post" action="#">
+             		<input class="form-control input-lg" type="text" id="search" placeholder="Search" onkeydown="if (event.keyCode == 13) searchResults()"/>
 		    </form>
 		</div>
 
@@ -44,33 +44,28 @@
                     <button type="button" class="btn btnInfo" th:text="${followerCount}">10<br />Verfolger</button>
                 </div>
                 <div class="media-right media-middle">
-                    <img src="img_avatar1.png" class="media-object" id="usericon">
+                    <img src="../static/img_avatar1.png" class="media-object" id="usericon">
                 </div>
-            	</div>
-            	<div class="col-md-offset-3 col-md-2">
-            		<form action="#" method="post">
-            			<button id="follow" type="button" class="btn btnInfo" name="action" value="follow" th:class="§{isFollowing} ? 'Entfolgen' : 'Folgen'">Folgen</button>
-            		</form>
-        		</div>
+            </div>
             </div>
         </div>
-        
 
         <div class="row">
             <div class="col-md-12">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#home" class="tab">Beiträge</a></li>
-                    <li><a data-toggle="tab" href="#menu1"  class="tab">Verfolgte</a></li>
-                    <li><a data-toggle="tab" href="#menu2" class="tab">Verfolger</a></li>
+                    <li class="active"><a data-toggle="tab" href="#home" class="tab">Beiträge(global)</a></li>
+                    <li><a data-toggle="tab" href="#menu1"  class="tab">Beiträge(lokal)</a></li>
+                    <li><a data-toggle="tab" href="#menu2"  class="tab">Verfolgte</a></li>
+                    <li><a data-toggle="tab" href="#menu3" class="tab">Verfolger</a></li>
                 </ul>
 
                 <div class="tab-content">
                     <div id="home" class="tab-pane fade in active">
                         <tbody class="list-group" th:remove="all-but-first">
-                        	 <tr class="list-group-item" th:each="post : ${lokalPostList}">
+                        	<tr class="list-group-item" th:each="post : ${globalPostList}">
                                 <div class="media">
                                     <div class="media-left media-top">
-                                        <img src="img_avatar1.png" class="media-object timelineIcon">
+                                        <img src="../static/img_avatar1.png" class="media-object timelineIcon">
                                     </div>
                                     <div class="media-body">
                                         <h4 class="media-heading" th:text="${post.user.name}">James Doe <em class="small" th:text="${#dates.format(post.timestamp, 'HH:mm dd-MMM-yyyy')}">Sonntag, 17:54 Uhr</em></h4>
@@ -81,7 +76,7 @@
                             <tr class="list-group-item">
                                 <div class="media">
                                     <div class="media-left media-top">
-                                        <img src="img_avatar1.png" class="media-object timelineIcon">
+                                        <img src="../static/img_avatar1.png" class="media-object timelineIcon">
                                     </div>
                                     <div class="media-body">
                                         <h4 class="media-heading">John Doe <em class="small">Gestern, 12:30 Uhr</em></h4>
@@ -92,7 +87,7 @@
                             <tr class="list-group-item">
                                 <div class="media">
                                     <div class="media-left media-top">
-                                        <img src="img_avatar1.png" class="media-object timelineIcon">
+                                        <img src="../static/img_avatar1.png" class="media-object timelineIcon">
                                     </div>
                                     <div class="media-body">
                                         <h4 class="media-heading">Jane Doe <em class="small">2.4.2017, 7:23 Uhr Uhr</em></h4>
@@ -102,7 +97,44 @@
                             </tr>
                         </tbody>
                     </div>
-                   <div id="menu1" class="tab-pane fade">
+                    <div id="menu1" class="tab-pane fade in active">
+                        <tbody class="list-group" th:remove="all-but-first">
+                        	 <tr class="list-group-item" th:each="post : ${lokalPostList}">
+                                <div class="media">
+                                    <div class="media-left media-top">
+                                        <img src="../static/img_avatar1.png" class="media-object timelineIcon">
+                                    </div>
+                                    <div class="media-body">
+                                        <h4 class="media-heading" th:text="${post.user.name}">James Doe <em class="small" th:text="${#dates.format(post.timestamp, 'HH:mm dd-MMM-yyyy')}">Sonntag, 17:54 Uhr</em></h4>
+                                        <p th:text="${post.content}">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et</p>
+                                    </div>
+                                </div>
+                            </tr>
+                            <tr class="list-group-item">
+                                <div class="media">
+                                    <div class="media-left media-top">
+                                        <img src="../static/img_avatar1.png" class="media-object timelineIcon">
+                                    </div>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">John Doe <em class="small">Gestern, 12:30 Uhr</em></h4>
+                                        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+                                    </div>
+                                </div>
+                            </tr>
+                            <tr class="list-group-item">
+                                <div class="media">
+                                    <div class="media-left media-top">
+                                        <img src="../static/img_avatar1.png" class="media-object timelineIcon">
+                                    </div>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">Jane Doe <em class="small">2.4.2017, 7:23 Uhr Uhr</em></h4>
+                                        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore</p>
+                                    </div>
+                                </div>
+                            </tr>
+                        </tbody>
+                    </div>
+                    <div id="menu2" class="tab-pane fade">
                         <tbody class="list-group-item" th:each="user : ${followingList}">
                         	<div class="media">
                         		<div class="media-left media-top">
@@ -111,7 +143,7 @@
                         	</div>
                         </tbody>
                     </div>
-                    <div id="menu2" class="tab-pane fade">
+                    <div id="menu3" class="tab-pane fade">
                         <tbody class="list-group-item" th:each="user : ${followerList}">
                         	<div class="media">
                         		<div class="media-left media-top">
@@ -137,7 +169,9 @@
 	<div id="newPost">
    		<h2  >Neuer Post</h2>
    		<textarea id="postContent"  placeholder="Was passiert gerade?"></textarea>
-   		<button id="postButton" type="button" class="btn btnInfo" onclick="hideNewPost()">Posten</button>
+   		<form action="#" method="post">
+   			<button id="postButton" type="button" class="btn btnInfo" onclick="hideNewPost()" name="action" value="post">Posten</button>
+   		</form>
     </div>
     <div id="searchRes">
     	<h2>Suchergebnisse</h2>

@@ -7,14 +7,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.WebRequest;
-import org.thymeleaf.ITemplateEngine;
-import org.thymeleaf.context.WebContext;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
@@ -57,12 +53,12 @@ public class LoginController {
     }
     
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public void process(final HttpServletRequest request, final HttpServletResponse response,
-                        final ServletContext servletContext, final ITemplateEngine templateEngine) throws Exception {
+    public String process(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
 
-		WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
-		
-		templateEngine.process("login", ctx, response.getWriter());
+		//WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
+		//templateEngine.process("login", ctx, response.getWriter());
+
+		return "login";
     }
     
     

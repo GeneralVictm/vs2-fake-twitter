@@ -6,10 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.thymeleaf.ITemplateEngine;
-import org.thymeleaf.context.WebContext;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,12 +21,12 @@ public class RegisterController {
     private static final Duration TIMEOUT = Duration.ofMinutes(15);
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public void process(final HttpServletRequest request, final HttpServletResponse response,
-                        final ServletContext servletContext, final ITemplateEngine templateEngine) throws Exception {
+	public String process(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
 		
-		WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
-		
-		templateEngine.process("register", ctx, response.getWriter());
+		//WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
+		//templateEngine.process("register", ctx, response.getWriter());
+
+		return "register";
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -42,6 +39,6 @@ public class RegisterController {
             response.addCookie(cookie);
             return "redirect:users/" + user.getName(); // wenn es nicht funktioniert: kopletter Pfad angeben
         }
-        return "redirect:login"; // gleiches wie oben
+        return "redirect:register"; // gleiches wie oben
     }
 }

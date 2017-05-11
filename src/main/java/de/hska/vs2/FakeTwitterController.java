@@ -25,22 +25,22 @@ public class FakeTwitterController {
 			ctx.setVariable("followingCount", user.getCountFollowing());
 			ctx.setVariable("followerCount", user.getCountFollower());
 			String[] timeline = repository.getGlobalTimeline(user.getId());
-			for (int i = 0; i < timeline.length; i++) {
+			for (int i = 0; i < timeline.length(); i++) {
 				posts[i] = new Post(timeline[i]) ;
 			}
 			ctx.setVariable("globalPostList", posts);
 			 timeline = repository.getPersonalTimeline(user.getId());
-			for (int i = 0; i < timeline.length; i++) {
+			for (int i = 0; i < timeline.length(); i++) {
 				posts[i] = new Post(timeline[i]) ;
 			}
 			ctx.setVariable("lokalPostList", posts);
 			String[] follow = repository.getFollower(user.getId());
-			for (int i = 0; i < timeline.length; i++) {
+			for (int i = 0; i < timeline.length(); i++) {
 				follower[i] = new User(follow[i]) ;
 			}
 			ctx.setVariable("followerList", follower);
 			 follow = repository.getFollower(user.getId());
-			for (int i = 0; i < timeline.length; i++) {
+			for (int i = 0; i < timeline.length(); i++) {
 				following[i] = new User(follow[i]);
 			}
 			ctx.setVariable("followingList", following);
@@ -51,24 +51,24 @@ public class FakeTwitterController {
 			ctx.setVariable("followingCount", user2.getCountFollowing());
 			ctx.setVariable("followerCount", user2.getCountFollower());
 			String[] timeline = repository.getPersonalTimeline(id);
-			for (int i = 0; i < timeline.length; i++) {
+			for (int i = 0; i < timeline.length(); i++) {
 				posts[i] = new Post(timeline[i]) ;
 			}
 			ctx.setVariable("lokalPostList", posts);
 			 follow = repository.getFollower(user.getId());
-			for (int i = 0; i < follow.length; i++) {
+			for (int i = 0; i < follow.length(); i++) {
 				follower[i] = new User(follow[i]) ;
 			}
 			ctx.setVariable("followerList", follower);
 			boolean isFollowing = false;
-			for(int i = 0; i < follow.length; i++){
+			for(int i = 0; i < follow.length(); i++){
 				if(follow[i].getId() == id){
 					isFollowing = true;
 				}
 			}
 			ctx.setVariable("isFollowing", isFollowing);
 			 follow = repository.getFollower(user.getId());
-			for (int i = 0; i < follow.length; i++) {
+			for (int i = 0; i < follow.length(); i++) {
 				following[i] = new User(follow[i]) ;
 			}
 			ctx.setVariable("followingList", following);
@@ -95,16 +95,24 @@ public class FakeTwitterController {
     }
 	
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.POST)
-    public void search(@RequestParam("search") String user) {
-		String[] users = repository.search(user);
+    public void search(@RequestParam("search") String search) {
+		//String[] users = repository.search(user);
 		WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
-		/*User[] result;
-		for (int i = 0; i < users; i++) {
+		User[] result;
+		/*for (int i = 0; i < users; i++) {
 			result[i] = new User(users[i]);
 		}*/
 
 		String[] allUsers = repository.getAllUsers();
-		ctx.setVariable("searchResult",allUsers);
+		int k = 0;
+		for (int i = 0; i < allUsers.length(); i++) {
+			User user = new User(allUser[i]);
+			if (user.getName().contains(search)) {
+				result[k] = new User(allUsers[i]);
+				k++;
+			}
+		}
+		ctx.setVariable("searchResult",result);
     }
 	
 }

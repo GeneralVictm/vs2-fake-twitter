@@ -1,3 +1,4 @@
+package de.hska.vs2;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +13,7 @@ public class FakeTwitterController {
 	
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
 	public void process(final HttpServletRequest request, final HttpServletResponse response,
-            final ServletContext servletContext, final ITemplateEngine templateEngine, @PathVariable("id") int id) {
+            final ServletContext servletContext, final ITemplateEngine templateEngine, @PathVariable("id") String id) {
 		
 		WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 		User user = new User(SecurityInfo.getUid());

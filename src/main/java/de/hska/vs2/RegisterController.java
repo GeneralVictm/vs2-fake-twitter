@@ -37,7 +37,7 @@ public class RegisterController {
             String auth = repository.addAuth(user.getName(), TIMEOUT.getSeconds(), TimeUnit.SECONDS);
             Cookie cookie = new Cookie("auth", auth);
             response.addCookie(cookie);
-            return "redirect:users/" + user.getName(); // wenn es nicht funktioniert: kopletter Pfad angeben
+            return "redirect:users/" + user.getId(); // wenn es nicht funktioniert: kopletter Pfad angeben
         }
         return "redirect:register"; // gleiches wie oben
     }

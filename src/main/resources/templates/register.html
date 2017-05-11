@@ -1,80 +1,87 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="de">
 <head>
-<meta charset="utf-8">
-<title>fakeTwitter</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<style>
-*{
-	margin: 0;
-	padding: 0;
-	font-family: Arial;
-}
+	<title>Fake-Twitter - Registrieren</title>
 
-body{
-	background-color:  rgba(70,70,70,1.00);
-}
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 
-#signUpBox{
-	margin: 0 auto;
-	margin-top: 100px;
-	width: 250px;
-	background-color: white;
-	padding: 20px;
-	border-radius: 5px;
-}
-h1{
-	padding: 10px 0;
-}
-input{
-	border-color: black;
-	padding: 5px 0;
-	margin: 5px;
-	width: 240px;
-}
-input:focus{
-	background-color: rgba(233,255,249,0.3);
-	border-color: black;
-}
-input[type=submit]{
-	background-color: rgba(215,255,245,0.6);
-	border: hidden;
-	shadow: none;
-	width: 140px;
-	height: 40px;
-	display: block;
-	margin: 0 auto;
-	margin-top: 40px;
-	margin-bottom: 15px;
-}
-input[type=submit]:focus{
-	background-color: rgba(215,255,245,1.00);
-}
-a{
-	display: block;
-	text-align: center;
-	font-size: 0.8em;
-	text-decoration: none;
-	color:rgba(7,175,133,1.00);
-	margin-top: 5px;
-}
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-</style>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			font-family: Arial;
+		}
 
+		body{
+			background-color:  rgba(70,70,70,1.00);
+		}
+
+		#signUpBox{
+			margin: 0 auto;
+			margin-top: 100px;
+			width: 250px;
+			background-color: white;
+			padding: 20px;
+			border-radius: 5px;
+		}
+		h1{
+			padding: 10px 0;
+		}
+		input{
+			border-color: black;
+			padding: 5px 0;
+			margin: 5px;
+			width: 240px;
+		}
+		input:focus{
+			background-color: rgba(233,255,249,0.3);
+			border-color: black;
+		}
+		input[type=submit]{
+			background-color: rgba(215,255,245,0.6);
+			border: hidden;
+			shadow: none;
+			width: 140px;
+			height: 40px;
+			display: block;
+			margin: 0 auto;
+			margin-top: 40px;
+			margin-bottom: 15px;
+		}
+		input[type=submit]:focus{
+			background-color: rgba(215,255,245,1.00);
+		}
+		a{
+			display: block;
+			text-align: center;
+			font-size: 0.8em;
+			text-decoration: none;
+			color:rgba(7,175,133,1.00);
+			margin-top: 5px;
+		}
+	</style>
 </head>
 
 <body>
-<div id="signUpBox">
-	<h1>Registrieren</h1>
-    <form method="post" action="#">
-		<input type="email" placeholder="Email" name="email" id="email">
-		<input type="email" placeholder="Username" name="name" id="name">
-		<input type="text" placeholder="Password" name="password" id ="password">
-		<input type="password" placeholder="Password wiederholen" name="passw" id="passw">
-		<input type="submit" value="SEND">
-        
-	</form>
-    <a href="/login.html">Bereits registriert?</a>
-</div>
+	<div id="signUpBox">
+		<h1>Registrieren</h1>
+		<form method="post" action="/register">
+			<input type="email" placeholder="Email" name="email" id="email" />
+			<input type="text" placeholder="Username" name="name" id="name" />
+			<input type="password" placeholder="Password" name="password" id ="password" />
+			<input type="password" placeholder="Password wiederholen" name="passw" id="passw" />
+			<input type="submit" value="SEND" />
+		</form>
+		<a href="/login">Bereits registriert?</a>
+	</div>
 </body>
 </html>

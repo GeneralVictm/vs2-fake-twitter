@@ -38,7 +38,7 @@ public class LoginController {
             String auth = repository.addAuth(name, TIMEOUT.getSeconds(), TimeUnit.SECONDS);
             Cookie cookie = new Cookie("auth", auth);
             response.addCookie(cookie);
-            return "redirect:users/" + name; // wenn es nicht funktioniert: kompletter Pfad angeben
+            return "redirect:users/" + repository.getUserId(name); // wenn es nicht funktioniert: kompletter Pfad angeben
         }
         return "redirect:login"; // gleiches wie oben
     }
